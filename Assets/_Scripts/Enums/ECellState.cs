@@ -3,5 +3,5 @@ using System.Collections;
 
 public enum ECellState
 {
-    NORMAL, HOVER, SELECTED, TARGETED, UNSELECTED
+    NORMAL, SELECTED, TARGETED
 }

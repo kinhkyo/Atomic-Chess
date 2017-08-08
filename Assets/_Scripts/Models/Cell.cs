@@ -3,103 +3,111 @@ using System.Collections;
 
 public class Cell : MonoBehaviour
 {
-    private Transform cellHoverObj;
-    private Transform cellSelectedObj;
-    private BasePiece _currentPiece;
-    private ECellColor _color;
-    public ECellColor Color
-    {
-        get { return _color; }
-        set
-        {
-            _color = value;
-            Debug.Log("Check : " + _color);
-            switch (_color)
-            {
-                case ECellColor.BLACK:
-                    GetComponent<Renderer>().material = ResourcesCTL.Instance.BlackCellMaterial;
-                    break;
-                case ECellColor.WHITE:
-                    GetComponent<Renderer>().material = ResourcesCTL.Instance.WhiteCellMaterial;
-                    break;
-                default:
-                    break;
-            }
-        }
+	
+	private Transform cellSelectedObj;
+
+	public BasePiece CurrentPiece { get; private set; }
+
+	private ECellColor _color;
+	public ECellColor Color
+	{
+		get { return _color; }
+		set
+		{
+			_color = value;
+
+			switch (_color)
+			{
+				case ECellColor.BLACK:
+					GetComponent<Renderer>().material = ResourcesCTL.Instance.BlackCellMaterial;
+					break;
+				case ECellColor.WHITE:
+					GetComponent<Renderer>().material = ResourcesCTL.Instance.WhiteCellMaterial;
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
+    public CLocation Location { get; private set; }
+	private ECellState _state;
+
+
+    public void setLocation(CLocation location){
+
+        this.Location = location;
     }
 
+	public ECellState State
+	{
+		get { return _state; }
+		private set
+		{
+			_state = value;
 
-    private ECellState _state;
-    public ECellState State
-    {
-        get { return _state; }
-        private set
-        {
-            _state = value;
-
-            switch (_state)
-            {
-                case ECellState.NORMAL:
-                    cellHoverObj.gameObject.SetActive(false);
+			switch (_state)
+			{
+				case ECellState.NORMAL:
                     cellSelectedObj.gameObject.SetActive(false);
                     break;
-                case ECellState.HOVER:
-                    cellHoverObj.gameObject.SetActive(true);
-                    cellSelectedObj.gameObject.SetActive(false);
-                    break;
-
-                case ECellState.SELECTED:
-                    cellHoverObj.gameObject.SetActive(false);
-                    cellSelectedObj.gameObject.SetActive(true);
-                    break;
-                case ECellState.TARGETED:
-
-                    break;
-                default:
-                    cellHoverObj.gameObject.SetActive(false);
-                    cellSelectedObj.gameObject.SetActive(false);
-                    break;
-            }
-        }
-    }
+				case ECellState.SELECTED:
+					cellSelectedObj.gameObject.SetActive(true);
+					CurrentPiece.BeSelected();
+					break;
+				case ECellState.TARGETED:
+					cellSelectedObj.gameObject.SetActive(true);
+					break;
+				
+			}
+		}
+	}
 
 
-    public float SIZE
-    {
-        get
-        {
-            return GetComponent<Renderer>().bounds.size.x;
-        }
-    }
+	public float SIZE
+	{
+		get
+		{
+			return GetComponent<Renderer>().bounds.size.x;
+		}
+	}
+
+	void Awake()
+	{
+		cellSelectedObj = this.transform.GetChild(1);
+	}
+
+	void Start()
+	{
+		//  State = ECellState.NORMAL;
+	}
 
 
-    protected void Start()
-    {
-        cellHoverObj = this.transform.GetChild(0);
-        cellSelectedObj = this.transform.GetChild(1);
+	/// <summary>
+	/// Chỉ có thể thay đổi được cell state thông qua hàm SetCellState
+	/// </summary>
+	public void SetCellState(ECellState cellState)
+	{
 
+		this.State = cellState;
+
+	}
+
+	/// <summary>
+	/// Truyền vào null nếu như quân cờ di chuyển từ ô này đi ra
+	/// </summary>
+	/// <param name="piece"></param>
+	public void SetPiece(BasePiece piece)
+	{
+		this.CurrentPiece = piece;
+	}
+
+    //Handle move current cell.
+    public void MakeAMove(Cell targetedCell){
+        CurrentPiece.Move(targetedCell);
         State = ECellState.NORMAL;
-    }
+        CurrentPiece = null;
 
 
-    /// <summary>
-    /// Chỉ có thể thay đổi được cell state thông qua hàm SetCellState
-    /// </summary>
-    public void SetCellState(ECellState cellState)
-    {
-        if (cellState != ECellState.SELECTED)
-        {
-            if (this.State != ECellState.SELECTED)
-                this.State = cellState;
-        }
-        else
-        {
-            if (this.State == ECellState.SELECTED)
-                this.State = ECellState.HOVER;
-            else this.State = ECellState.SELECTED;
-        }
-
-        if (cellState == ECellState.UNSELECTED)
-            this.State = ECellState.UNSELECTED;
     }
 }

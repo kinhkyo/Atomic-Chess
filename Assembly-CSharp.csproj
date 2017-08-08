@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\_Scripts\CTLs\BaseGameCTL.cs" />
      <Compile Include="Assets\_Scripts\CTLs\ResourcesCTL.cs" />
+     <Compile Include="Assets\_Scripts\Enums\CLocation.cs" />
      <Compile Include="Assets\_Scripts\Enums\ECellColor.cs" />
      <Compile Include="Assets\_Scripts\Enums\ECellState.cs" />
      <Compile Include="Assets\_Scripts\Enums\EGameState.cs" />
@@ -68,8 +69,14 @@
      <Compile Include="Assets\_Scripts\Pieces\P_Queen.cs" />
      <Compile Include="Assets\_Scripts\Pieces\P_Rook.cs" />
      <Compile Include="Assets\Arcane Cyber\Chess\Demo\Scripts\CameraRotation.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
      <Compile Include="Assets\test\test.cs" />
+     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+     <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
+     <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
      <None Include="Assets\Arcane Cyber\Chess\readme.txt" />
+     <None Include="Assets\Demigiant\DOTween\DOTween43.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -90,6 +97,18 @@
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>/Users/giapvoduc/Desktop/Chess3D/Atomic Chess/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>/Users/giapvoduc/Desktop/Chess3D/Atomic Chess/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>/Users/giapvoduc/Desktop/Chess3D/Atomic Chess/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>/Users/giapvoduc/Desktop/Chess3D/Atomic Chess/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
